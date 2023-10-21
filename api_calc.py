@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify
 
-app = Flask(__name__)
+calc = Flask(__name__)
 
-@app.route('/add', methods=['POST'])
+@calc.route('/add', methods=['POST'])
 def add():
     data = request.get_json()
     if 'a' in data and 'b' in data:
@@ -13,9 +13,9 @@ def add():
     else:
         return jsonify({'error': 'Missing parameters'}), 400
 
-@app.route('/subtract', methods=['POST'])
+@calc.route('/subtract', methods=['POST'])
 def subtract():
-    data = request.get_json()
+    data = request.get_json()   
     if 'a' in data and 'b' in data:
         a = data['a']
         b = data['b']
@@ -24,7 +24,7 @@ def subtract():
     else:
         return jsonify({'error': 'Missing parameters'}), 400
 
-@app.route('/multiply', methods=['POST'])
+@calc.route('/multiply', methods=['POST'])
 def multiply():
     data = request.get_json()
     if 'a' in data and 'b' in data:
@@ -35,7 +35,7 @@ def multiply():
     else:
         return jsonify({'error': 'Missing parameters'}), 400
 
-@app.route('/divide', methods=['POST'])
+@calc.route('/divide', methods=['POST'])
 def divide():
     data = request.get_json()
     if 'a' in data and 'b' in data:
@@ -50,4 +50,4 @@ def divide():
         return jsonify({'error': 'Missing parameters'}), 400
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0",debug=True)
+    calc.run(host="0.0.0.0",debug=True)
