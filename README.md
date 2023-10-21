@@ -4,9 +4,7 @@
 В Dockerfile производится импортирование python, библиотеки Flask, проброс 5000 порта и запуск скрипта с API-калькулятором.
 
 ## Build container
-Собираем и запускаем контейнер. Далее обращаемся к нему через `curl`.
-	![[Pasted image 20231005142639.png]]
-	Вывод сигнализирует об успешной контейниризации программы.
+Собираем и запускаем контейнер. Далее обращаемся к нему через `curl` (или что-либо еще).
 
 ## Jenkins
 1. Устанавливаем Jenkins ([https://www.jenkins.io/doc/book/installing/linux/](https://www.jenkins.io/doc/book/installing/linux/)).
