@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     stages{
-        stage('Clear'){
+        stage('Clear docker images'){
             steps{
                 script{
                     sh 'docker stop $(docker ps -qa) 2>/dev/null'
