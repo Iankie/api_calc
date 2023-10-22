@@ -2,14 +2,6 @@ pipeline {
     agent any
     
     stages{
-        stage('Clear old repo and Git clone new repo'){
-            steps{
-                script{
-                    sh 'rm -rf api_calc'
-                    sh 'git clone https://github.com/Iankie/api_calc.git && cd api_calc'
-                }
-            }
-        }
         stage('Clear'){
             steps{
                 script{
