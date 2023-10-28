@@ -13,7 +13,8 @@ COPY api_calc.py .
 # Use 5000 port
 EXPOSE 5000
 
+USER 1000
+
 # Start program
 CMD ["python", "api_calc.py"]
 
-USER 1000
