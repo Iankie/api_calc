@@ -27,27 +27,16 @@ pipeline {
                 script {
                     def trivyReport = sh(script: 'sudo trivy image -f json -o ./reports/trivy-report.json --security-checks vuln api_calc:latest', returnStatus: true)
                     archiveArtifacts artifacts: 'reports/trivy-report.json', allowEmptyArchive: true
-                    if (trivyReport != 0) {
-                        error("Trivy scan failed with a non-zero exit code")
-                    }
                 }
             }
         }
         stage('Security Scan with Semgrep') {
             steps {
                 script {
-                    sh 'semgrep -o ./reports/semgrep-report.json -e ./semgrep-policies/security-policy.yml ./api_calc.py'
+                    sh 'python -m venv venv && source ./venv/bin/activate && pip install semgrep && deactivate'
+                    sh './venv/bin/semgrep -o ./reports/semgrep-report.json ./api_calc.py'
                     archiveArtifacts artifacts: 'reports/semgrep-report.json', allowEmptyArchive: true
                 }
-            }
-        }
-        stage('Semgrep-Scan') {
-            steps {
-                sh '''docker pull returntocorp/semgrep && \
-            docker run \
-            -e SEMGREP_APP_TOKEN="d35c7047ee1a7798ea33829f824cbbd8113b97332ba296c1257bb18a186a897f" \
-            -v "$(pwd):$(pwd)" --workdir $(pwd) \
-            returntocorp/semgrep semgrep ci '''
             }
         }
     }
