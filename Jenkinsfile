@@ -34,7 +34,7 @@ pipeline {
             steps {
                 script {
                     sh 'python -m venv venv && source ./venv/bin/activate && pip install semgrep && deactivate'
-                    sh './venv/bin/semgrep -o ./reports/semgrep-report.json ./api_calc.py'
+                    sh 'semgrep -o ./reports/semgrep-report.json ./api_calc.py'
                     archiveArtifacts artifacts: 'reports/semgrep-report.json', allowEmptyArchive: true
                 }
             }
