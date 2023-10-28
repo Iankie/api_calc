@@ -1,0 +1,72 @@
+rules:
+  - id: sql-injection
+    patterns:
+      - pattern: |
+          {
+            "type": "Call",
+            "func": {
+              "type": "Attribute",
+              "value": {
+                "type": "Name",
+                "id": "request"
+              },
+              "attr": "get_json"
+            },
+            "args": {
+              "args": [
+                {
+                  "type": "Str",
+                  "s": "a"
+                }
+              ]
+            }
+          }
+        message: "Avoid using request.get_json('a') directly in SQL queries, it may lead to SQL injection."
+
+  - id: unhandled-exceptions
+    patterns:
+      - pattern: |
+          {
+            "type": "Raise",
+            "exc": {
+              "type": "Name",
+              "id": "Exception"
+            }
+          }
+        message: "Avoid raising generic 'Exception' without proper handling."
+
+  - id: no-authentication
+    patterns:
+      - pattern: |
+          {
+            "type": "Call",
+            "func": {
+              "type": "Attribute",
+              "value": {
+                "type": "Name",
+                "id": "calc"
+              },
+              "attr": "route"
+            }
+          }
+        message: "No authentication or authorization checks found. Consider adding authentication to your routes."
+
+  - id: weak-data-validation
+    patterns:
+      - pattern: |
+          {
+            "type": "Call",
+            "func": {
+              "type": "Attribute",
+              "value": {
+                "type": "Attribute",
+                "value": {
+                  "type": "Name",
+                  "id": "request"
+                },
+                "attr": "get_json"
+              },
+              "attr": "get"
+            }
+          }
+        message: "Weak data validation. Make sure to validate and sanitize user input properly."
