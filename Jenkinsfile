@@ -34,7 +34,7 @@ pipeline {
         stage('Security Scan with Trivy') {
             steps {
                 script {
-                    def trivyReport = sh(script: 'sudo trivy image -f json -o ./reports/trivy-report.json --security-checks vuln api_calc:latest', returnStatus: true)
+                    sh 'sudo trivy image -f json -o ./reports/trivy-report.json --security-checks vuln api_calc:latest'
                 }
             }
         }
