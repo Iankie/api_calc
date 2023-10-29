@@ -22,6 +22,14 @@ pipeline {
                 }
             }
         }
+        stage('Create dir reports, venv, install semgrep') {
+            steps {
+                script {
+                    sh 'mkdir reports'
+                    sh 'python -m venv venv && source ./venv/bin/activate && pip install semgrep && deactivate'
+                }
+            }
+        }
         stage('Security Scan with Trivy') {
             steps {
                 script {
@@ -33,8 +41,12 @@ pipeline {
         stage('Security Scan with Semgrep') {
             steps {
                 script {
+<<<<<<< HEAD
                     sh 'python -m venv venv && source ./venv/bin/activate && pip install semgrep && deactivate'
                     sh 'semgrep -o ./reports/semgrep-report.json ./api_calc.py'
+=======
+                    sh './venv/bin/semgrep -o ./reports/semgrep-report.json ./api_calc.py'
+>>>>>>> 5f2b03b (Update Jenkinsfile)
                     archiveArtifacts artifacts: 'reports/semgrep-report.json', allowEmptyArchive: true
                 }
             }
