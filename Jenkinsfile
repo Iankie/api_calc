@@ -22,7 +22,6 @@ pipeline {
         stage('Create dir reports, venv, install semgrep') {
             steps {
                 script {
-                    sh 'mkdir reports'
                     sh '''#!/bin/bash 
                     python -m venv venv
                     source ./venv/bin/activate 
