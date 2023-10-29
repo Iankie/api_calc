@@ -40,7 +40,7 @@ pipeline {
             }
         }
         stage('Security Scan with Semgrep') {
-            steps {/var/lib/jenkins/workspace/api_calc@tmp/durable-81ddd3a4/script.sh: 1: source: not found
+            steps {
                 script {
                     sh './venv/bin/semgrep -o ./reports/semgrep-report.json ./api_calc.py'
                     archiveArtifacts artifacts: 'reports/semgrep-report.json', allowEmptyArchive: true
