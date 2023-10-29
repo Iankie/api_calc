@@ -35,7 +35,6 @@ pipeline {
             steps {
                 script {
                     def trivyReport = sh(script: 'sudo trivy image -f json -o ./reports/trivy-report.json --security-checks vuln api_calc:latest', returnStatus: true)
-                    archiveArtifacts artifacts: 'reports/trivy-report.json', allowEmptyArchive: true
                 }
             }
         }
@@ -43,7 +42,6 @@ pipeline {
             steps {
                 script {
                     sh './venv/bin/semgrep -o ./reports/semgrep-report.json ./api_calc.py'
-                    archiveArtifacts artifacts: 'reports/semgrep-report.json', allowEmptyArchive: true
                 }
             }
         }
