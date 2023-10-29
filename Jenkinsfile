@@ -33,7 +33,7 @@ pipeline {
         stage('Security Scan with Trivy') {
             steps {
                 script {
-                    sh 'sudo trivy image -f json -o ./reports/trivy-report.json --security-checks vuln api_calc:latest'
+                    sh 'trivy image -f json -o ./reports/trivy-report.json --security-checks vuln api_calc:latest'
                 }
             }
         }
