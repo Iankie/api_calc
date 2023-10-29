@@ -26,7 +26,11 @@ pipeline {
             steps {
                 script {
                     sh 'mkdir reports'
-                    sh 'python -m venv venv && source ./venv/bin/activate && pip install semgrep && deactivate'
+                    sh '''#!/bin/bash 
+                    python -m venv venv
+                    source ./venv/bin/activate 
+                    pip install semgrep
+                    deactivate'''
                 }
             }
         }
@@ -39,7 +43,7 @@ pipeline {
             }
         }
         stage('Security Scan with Semgrep') {
-            steps {
+            steps {/var/lib/jenkins/workspace/api_calc@tmp/durable-81ddd3a4/script.sh: 1: source: not found
                 script {
                     sh './venv/bin/semgrep -o ./reports/semgrep-report.json ./api_calc.py'
                     archiveArtifacts artifacts: 'reports/semgrep-report.json', allowEmptyArchive: true
