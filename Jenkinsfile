@@ -35,7 +35,7 @@ pipeline {
         stage('Security Scan with Trivy') {
             steps {
                 script {
-                    sh 'trivy image --ignore-unfixed -f template --template "@html.tpl" -o ./reports/trivy-report.html --security-checks vuln api_calc:latest'
+                    sh 'trivy image --ignore-unfixed -f template --template "@html.tpl" -o ./reports/trivy-report.html --scanners vuln api_calc:latest'
                     publishHTML target : [
                     allowMissing: true,
                     alwaysLinkToLastBuild: true,
