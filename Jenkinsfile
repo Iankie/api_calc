@@ -45,7 +45,7 @@ pipeline {
                     reportName: 'Trivy Scan Vulns',
                     reportTitles: 'Trivy Scan Vulns'
                 ]
-                    // sh 'trivy image --ignore-unfixed --exit-code 1 --severity HIGH,CRITICAL --security-checks vuln api_calc:latest'
+                    sh 'trivy image --ignore-unfixed --exit-code 1 --severity HIGH,CRITICAL --security-checks vuln api_calc:latest'
                 }
             }
         }
