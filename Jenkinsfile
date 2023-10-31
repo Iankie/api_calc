@@ -24,6 +24,7 @@ pipeline {
                 script {
                     sh '''#!/bin/bash 
                     mkdir reports
+                    curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl > html.tpl
                     python -m venv venv
                     source ./venv/bin/activate 
                     pip install semgrep
@@ -34,7 +35,7 @@ pipeline {
         stage('Security Scan with Trivy') {
             steps {
                 script {
-                    sh 'trivy image -f template --template "@html.tpl" -o ./reports/trivy-report.html --ignore-unfixed --security-checks vuln api_calc:latest'
+                    sh 'trivy image --format template --template "@html.tpl" -o ./reports/trivy-report.html --ignore-unfixed --security-checks vuln api_calc:latest'
                     publishHTML target : [
                     allowMissing: true,
                     alwaysLinkToLastBuild: true,
