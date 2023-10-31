@@ -23,6 +23,7 @@ pipeline {
             steps {
                 script {
                     sh '''#!/bin/bash 
+                    mkdir reports
                     python -m venv venv
                     source ./venv/bin/activate 
                     pip install semgrep
@@ -33,7 +34,17 @@ pipeline {
         stage('Security Scan with Trivy') {
             steps {
                 script {
-                    sh 'trivy image -f json -o ./reports/trivy-report.json --security-checks vuln api_calc:latest'
+                    sh 'trivy image -f template --template "@html.tpl" -o ./reports/trivy-report.html --ignore-unfixed --security-checks vuln api_calc:latest'
+                    publishHTML target : [
+                    allowMissing: true,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'reports',
+                    reportFiles: 'trivy-report.html',
+                    reportName: 'Trivy Scan Vulns',
+                    reportTitles: 'Trivy Scan Vulns'
+                ]
+                    sh 'trivy image --ignore-unfixed --exit-code 1 --severity HIGH,CRITICAL --security-checks vuln api_calc:latest'
                 }
             }
         }
