@@ -36,15 +36,7 @@ pipeline {
             steps {
                 script {
                     sh 'trivy image --ignore-unfixed -f template --template "@html.tpl" -o ./reports/trivy-report.html --scanners vuln api_calc:latest'
-                    publishHTML target : [
-                    allowMissing: true,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: 'reports',
-                    reportFiles: 'trivy-report.html',
-                    reportName: 'Trivy Scan Vulns',
-                    reportTitles: 'Trivy Scan Vulns'
-                ]
+                    
                     // sh 'trivy image --ignore-unfixed --exit-code 1 --severity HIGH,CRITICAL --security-checks vuln api_calc:latest'
                 }
             }
