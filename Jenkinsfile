@@ -52,7 +52,7 @@ pipeline {
         stage('Security Scan with Semgrep') {
             steps {
                 script {
-                    sh './venv/bin/semgrep --config auto -o ./reports/semgrep-report.html --html ./api_calc.py'
+                    sh './venv/bin/semgrep --config auto --junit-xml -o ./reports/semgrep-report.xml ./api_calc.py'
                     junit skipMarkingBuildUnstable: true, testResults: 'reports/semgrep-report.xml'
                 }
             }
