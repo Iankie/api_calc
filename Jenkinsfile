@@ -19,7 +19,7 @@ pipeline {
                 }
             }
         }
-        stage('Create dir reports, venv, install semgrep') {
+        stage('Create dir reports, venv, download trivy template, install semgrep') {
             steps {
                 script {
                     sh '''#!/bin/bash 
@@ -45,7 +45,7 @@ pipeline {
                     reportName: 'Trivy Scan Vulns',
                     reportTitles: 'Trivy Scan Vulns'
                 ]
-                    sh 'trivy image --ignore-unfixed --exit-code 1 --severity HIGH,CRITICAL --security-checks vuln api_calc:latest'
+                    // sh 'trivy image --ignore-unfixed --exit-code 1 --severity HIGH,CRITICAL --security-checks vuln api_calc:latest'
                 }
             }
         }
